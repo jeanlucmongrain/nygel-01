@@ -1,0 +1,19 @@
+version: "3"
+
+volumes:
+  golang-cache:
+    name: golang-cache
+
+services:
+  backend:
+    container_name: nygel-01-backend
+    hostname: nygel-01-backend
+    working_dir: ${PWD}
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    volumes:
+      - ..:/${PWD}:cached
+      - golang-cache:/go/pkg
+    command: /bin/sh -c "sleep 10000h"
+    restart: unless-stopped
